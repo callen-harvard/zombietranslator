@@ -1,32 +1,26 @@
-$(document).ready(function(){
-  $('#zombie-to-english-btn').click(function(event){
-    unzombify();
-    return false;
-  });
+/**
+ * Configure RequireJS to look in the appropriate
+ * directories. Also, "shim" in dependencies that
+ * are not AMD-compliant, and list out their dependencies.
+ *
+ */
+ requirejs.config({
+    "baseUrl": "js/vendors",
+    "paths": {
+      "jquery": "jquery.min",
+      "ztrans": "../app/ztrans",
+      "ZombieTranslator": "../app/ZombieTranslator"
+    },
+});
 
-  $('#english-to-zombie-btn').click(function(event){
-    zombify();
-    return false;
-  });
-
-  function zombify(){
-    // 1. lower-case "r" at the end of words replaced with "rh".
-    // 2. an "a" or "A" by itself will be replaced with "hra".
-    // 3. the starts of sentences are capitalised (the "start of a sentence" is any occurrence of
-    //   ".!?", followed by a space, followed by a letter.)
-    // 4. "e" or "E" is replaced by "rr"
-    // 5. "i" or "I" is replaced by "rrRr"
-    // 6. "o" or "O" is replaced by "rrrRr"
-    // 7. "u" or "U" is replaced by "rrrrRr"
-    // 8. "r" or "R' is replaced by "RR"
-    $('#zombie').val($('#english').val());
-  }
-
-  function unzombify(){
-
-
-  }
-
-  $('#english').on("keyup", zombify);
-
+/**
+ * Inject/require the main application, which is stored at
+ * js/app/main.js.
+ *
+ * @param {array} - List of dependencies required to run.
+ * @param {function} - Callback function that runs everything.
+ *
+ */
+ requirejs(["jquery", "ZombieTranslator"], function() {
+	 console.log('Everything is set up.');
 });
